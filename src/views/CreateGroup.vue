@@ -33,7 +33,7 @@
               v-model="inputGroupName"
             />
             <!-- <button type="button" value="" @click="generateGroupId">Generate group Id</button> -->
-            <button type="button" @click="generateGroupId">
+            <button type="button" class="btn" @click="generateGroupId">
               Generate group Id
             </button>
             <input
