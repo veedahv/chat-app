@@ -1,51 +1,52 @@
 <template>
   <div class="create-group">
-    <div class="view login">
+    <div class="view">
       <div class="login-box">
         <!-- <form class="login-form" @submit.prevent="login"> -->
-        <form class="login-form" @submit.prevent="createGroup">
+        <form class="auth-form" @submit.prevent="createGroup">
           <div class="form-main">
             <h1 class="login-intro">Hiii</h1>
-            <label for="hostname" class="host-label">Host name</label>
-            <!-- <input
-              type="text"
-              name="username"
-              id="username"
-              lass="username"
-              placeholder="Username"
-              v-model="inputUsername"
-            /> -->
-            <input
-              type="text"
-              name="hostname"
-              id="hostname"
-              class="hostname"
-              placeholder="Hostname"
-              v-model="inputHostname"
-            />
-            <label for="username" class="user-label">Host name</label>
-            <input
-              type="text"
-              name="groupname"
-              id="groupname"
-              class="groupname"
-              placeholder="groupname"
-              v-model="inputGroupName"
-            />
+            <div class="form-flx-box">
+              <div class="form-input-box">
+                <label for="hostname" class="form-label">Host name</label>
+                <input
+                  type="text"
+                  name="hostname"
+                  id="hostname"
+                  class="hostname form-input"
+                  placeholder="Host Name"
+                  v-model="inputHostname"
+                />
+              </div>
+              <div class="form-input-box">
+                <label for="username" class="form-label">Group name</label>
+                <input
+                  type="text"
+                  name="groupname"
+                  id="groupname"
+                  class="groupname form-input"
+                  placeholder="Group Name"
+                  v-model="inputGroupName"
+                />
+              </div>
+            </div>
             <!-- <button type="button" value="" @click="generateGroupId">Generate group Id</button> -->
-            <button type="button" class="btn" @click="generateGroupId">
-              Generate group Id
-            </button>
-            <input
-              type="text"
-              name="username"
-              id="username"
-              class="username"
-              placeholder="Username"
-              v-model="inputGroupId"
-              disabled
-            />
-            <input type="submit" value="Create Group" />
+            <div class="form-flx-box">
+                <button type="button" class="btn" @click="generateGroupId">
+                  Generate group Id
+                </button>
+              <div class="form-input-box">
+                <input
+                  type="text"
+                  name="username"
+                  id="username"
+                  class="username form-input"
+                  v-model="inputGroupId"
+                  disabled
+                />
+              </div>
+            </div>
+            <input type="submit" class="btn auth-btn" value="Create Group" />
           </div>
         </form>
       </div>
@@ -81,16 +82,16 @@ export default {
         groupName: "",
         groupMessages: [],
       }),
-      groupInfo: '',
-      groups: []
+      groupInfo: "",
+      groups: [],
     };
   },
   methods: {
     startGroup() {
       // this.$router.push({ path: '/Chat' });
       // this.$router.push({ name: "CreateGroup", params: { group: state } });
-      this.groupInfo = JSON.stringify(this.state),
-      console.log(this.state.groupName);
+      (this.groupInfo = JSON.stringify(this.state)),
+        console.log(this.state.groupName);
       this.$router.push({ name: "Chat", params: { group: this.groupInfo } });
     },
     createGroup() {
@@ -145,11 +146,11 @@ export default {
     generateGroupId() {
       console.log(this.groups);
       console.log(this.createGroupId());
-      this.groups.forEach(group => {        
-        console.log(group.groupId);          
+      this.groups.forEach((group) => {
+        console.log(group.groupId);
         if (this.createGroupId === group.groupId) {
           this.generateGroupId();
-        } else {          
+        } else {
           this.inputGroupId = this.createGroupId();
         }
       });
@@ -158,32 +159,31 @@ export default {
   },
   mounted() {
     // onMounted(() => {
-      const messagesRef = db.database().ref("messages");
-      console.log(this.createGroupId());
-      console.log(this.groups);
+    const messagesRef = db.database().ref("messages");
+    console.log(this.createGroupId());
+    console.log(this.groups);
 
-      messagesRef.on("value", (snapshot) => {
-        const data = snapshot.val();
-        let groupsArr = [];
+    messagesRef.on("value", (snapshot) => {
+      const data = snapshot.val();
+      let groupsArr = [];
 
-        Object.keys(data).forEach((key) => {
-          groupsArr.push({
-            id: key,
-            groupId: data[key].groupId,
-            hostname: data[key].hostname,
-            groupName: data[key].groupName,
-            groupMessages: data[key].groupMessages,
-            // username: data[key].username,
-            // content: data[key].content,
-          });
+      Object.keys(data).forEach((key) => {
+        groupsArr.push({
+          id: key,
+          groupId: data[key].groupId,
+          hostname: data[key].hostname,
+          groupName: data[key].groupName,
+          groupMessages: data[key].groupMessages,
+          // username: data[key].username,
+          // content: data[key].content,
         });
+      });
 
-        this.groups = groupsArr;
+      this.groups = groupsArr;
 
-
-        // state.messages = messages;
+      // state.messages = messages;
       // });
-        console.log(this.groups);
+      console.log(this.groups);
     });
     // log
   },
@@ -299,16 +299,10 @@ export default {
 </script>
 
 <style scoped>
-.view {
-  width: 100vw;
-  height: 100vh;
-}
+
 .login {
   display: flex;
   align-items: center;
-}
-.chat {
-  padding: 50px 20px;
 }
 input {
   display: block;
