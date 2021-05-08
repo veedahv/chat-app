@@ -45,8 +45,7 @@
               v-model="inputGroupId"
               disabled
             />
-            <input type="submit" value="Login" />
-            <button type="button" @click="startGroup">Trial</button>
+            <input type="submit" value="Create Group" />
           </div>
         </form>
       </div>
@@ -61,8 +60,8 @@ import db from "@/db.js";
 // import VueRouter from 'vue-router';
 // import Vue from 'vue';
 
-import { reactive, onMounted, ref } from "vue";
-// import { reactive, ref } from "vue";
+// import { reactive, onMounted, ref } from "vue";
+import { reactive, ref } from "vue";
 
 export default {
   name: "CreateGroup",
@@ -145,21 +144,30 @@ export default {
     },
     generateGroupId() {
       console.log(this.groups);
-      this.inputGroupId = this.createGroupId();
+      console.log(this.createGroupId());
+      this.groups.forEach(group => {        
+        console.log(group.groupId);          
+        if (this.createGroupId === group.groupId) {
+          this.generateGroupId();
+        } else {          
+          this.inputGroupId = this.createGroupId();
+        }
+      });
       // this.inputGroupId.value = createGroupId();
     },
   },
   mounted() {
-    onMounted(() => {
+    // onMounted(() => {
       const messagesRef = db.database().ref("messages");
       console.log(this.createGroupId());
+      console.log(this.groups);
 
       messagesRef.on("value", (snapshot) => {
         const data = snapshot.val();
-        // let group = [];
+        let groupsArr = [];
 
         Object.keys(data).forEach((key) => {
-          this.groups.push({
+          groupsArr.push({
             id: key,
             groupId: data[key].groupId,
             hostname: data[key].hostname,
@@ -169,10 +177,13 @@ export default {
             // content: data[key].content,
           });
         });
-        console.log(this.group);
+
+        this.groups = groupsArr;
+
 
         // state.messages = messages;
-      });
+      // });
+        console.log(this.groups);
     });
     // log
   },
@@ -299,6 +310,9 @@ export default {
 .chat {
   padding: 50px 20px;
 }
+input {
+  display: block;
+}
 .header,
 .footer {
   position: fixed;
@@ -309,20 +323,9 @@ export default {
 .header {
   top: 0;
 }
-.current-user {
-  text-align: right;
-}
 .footer {
   bottom: 0;
   padding: 5px 20px;
-}
-.chat-input-box {
-  display: flex;
-  align-items: center;
-}
-.chat-message {
-  width: 100%;
-  padding: 10px 15px;
 }
 .send {
   padding: 10px 15px;
