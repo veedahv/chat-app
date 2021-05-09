@@ -1,10 +1,12 @@
 <template>
   <div class="home">
-    <div class="view chat">
+    <div class="chat-view chat">
+    <div class="chat-container">
       <div class="chat-box">
         <header class="header">
           <h1 class="chat-intro">{{ groupInfo.groupName }}</h1>
           <!-- <button class="logout" @click="logout">Logout</button> -->
+      <!-- <router-link :to="{name: 'Home'}">Home</router-link>  -->
         </header>
         <section class="chat-box">
           <div
@@ -19,7 +21,7 @@
           >
             <div class="message-inner">
               <span class="msg-bubble">
-                <div class="username">{{ message.username }}</div>
+                <div class="username">{{ message.username }} <span class="host" v-if="message.username === groupInfo.hostname">(Host)</span></div>
                 <div class="content">{{ message.content }}</div>
                 <div class="date-time">{{ message.dateTime }}</div>
               </span>
@@ -37,11 +39,12 @@
                 placeholder="Write a message"
                 v-model="inputMessage"
               />
-              <input type="submit" class="send" value="Send" />
+              <input type="submit" class="send btn" value="Send" />
             </div>
           </form>
         </footer>
       </div>
+    </div>
     </div>
   </div>
 </template>
@@ -150,16 +153,21 @@ export default {
 
 
 <style scoped>
-.view {
+.chat-view {
   width: 100vw;
-  height: 100vh;
+  height: 95vh;
+  position: relative;
+}
+.chat-container {
+  height: 100%;
+  overflow-y: scroll;
 }
 .chat {
   padding: 50px 20px;
 }
 .header,
 .footer {
-  position: fixed;
+  position: absolute;
   width: 100%;
   left: 0;
   z-index: 5;
@@ -167,14 +175,24 @@ export default {
 .header {
   top: 0;
 }
+.chat-msg {
+  margin-top: 15px;
+  margin-right: 10px;
+}
 .current-user {
+  margin-right: 0px;
+  margin-left: 10px;
   text-align: right;
 }
 .msg-bubble {
   background: var(--sec-color);
+  color: var(--light-color);
   padding: 25px 20px;
   border-radius: 10px;
   display: inline-block;
+}
+.current-user .msg-bubble {
+  background: var(--primary-color);
 }
 .footer {
   bottom: 0;
@@ -187,9 +205,20 @@ export default {
 .chat-message {
   width: 100%;
   padding: 10px 15px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  font-size: 18px;
+  border: 1px solid;
+  border-color: var(--primary-color) var(--sec-color) var(--sec-color) var(--primary-color);
 }
 .send {
+  border: 1px solid;
+  border-color: var(--primary-color) var(--sec-color) var(--sec-color) var(--primary-color);
   padding: 10px 15px;
+  margin-bottom: 0px;
+  font-size: 18px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
 }
 </style>
 
