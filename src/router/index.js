@@ -11,39 +11,45 @@ const routes = [
     name: 'Login',
     component: Login
   },
-  // {
-  //   path: '/',
-  //   name: 'Home',
-  //   component: Home
-  // },
   {
-    path: '/hom',
+    path: '/',
     name: 'Home',
     component: Home
   },
   // {
-  //   path: '/CreateGroup',
-  //   name: 'CreateGroup',
-  //   component: CreateGroup,
-  //   props: true
+  //   path: '/hom',
+  //   name: 'Home',
+  //   component: Home
   // },
+  {
+    path: '/CreateGroup',
+    name: 'CreateGroup',
+    component: CreateGroup,
+    props: true
+  },
   {
     path: '/JoinGroup',
     name: 'JoinGroup',
     component: JoinGroup,
     props: true
   },
-  {
-    path: '/',
-    name: 'CreateGroup',
-    component: CreateGroup,
-    props: true
-  },
+  // {
+  //   path: '/',
+  //   name: 'CreateGroup',
+  //   component: CreateGroup,
+  //   props: true
+  // },
   {
     path: '/Chat',
     name: 'Chat',
     component: Chat,
     props: true
+  },
+  {
+    path: '/Chat',
+    redirect: { 
+      name: 'Home' 
+    }
   },
 ]
 

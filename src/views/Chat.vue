@@ -6,7 +6,7 @@
         <header class="header">
           <h1 class="chat-intro">{{ groupInfo.groupName }}</h1>
           <!-- <button class="logout" @click="logout">Logout</button> -->
-      <!-- <router-link :to="{name: 'Home'}">Home</router-link>  -->
+      <router-link :to="{name: 'Home'}">Logout</router-link> 
         </header>
         <section class="chat-box">
           <div
@@ -154,7 +154,7 @@ export default {
 
 <style scoped>
 .chat-view {
-  width: 100vw;
+  width: 100%;
   height: 95vh;
   position: relative;
 }
@@ -174,9 +174,14 @@ export default {
 }
 .header {
   top: 0;
+  padding: 5px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .chat-msg {
   margin-top: 15px;
+  margin-bottom: 15px;
   margin-right: 10px;
 }
 .current-user {

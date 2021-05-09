@@ -1,10 +1,19 @@
 <template>
   <div id="app-main">
     <div id="nav">
-      <!-- <router-link to="/">Login</router-link> | -->
-      <!-- <router-link :to="{name: 'Home'}">Home</router-link>  -->
+      <router-link :to="{name: 'Home'}"><h1 class="logo">veechat</h1></router-link> 
     </div>
     <router-view />
+    <footer>
+      <div class="body-container">
+        <p class="copyright">
+          &#169; 2021 ||
+          <a href="https://victoria-akpan.netlify.app/" class="portfolio"
+            >By Veedahv</a
+          >
+        </p>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -153,6 +162,10 @@
   padding: 10px 30px;
   border: 1px solid;
   border-color: var(--primary-color) var(--sec-color) var(--sec-color) var(--primary-color);
+}
+
+.copyright {
+  text-align: center;
 }
 
 @media only screen and (max-width: 567px) {

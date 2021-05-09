@@ -2,7 +2,6 @@
   <div class="create-group">
     <div class="view">
       <div class="login-box">
-        <!-- <form class="login-form" @submit.prevent="login"> -->
         <form class="auth-form" @submit.prevent="createGroup">
           <div class="form-main">
             <h1 class="login-intro">Hiii</h1>
@@ -30,7 +29,6 @@
                 />
               </div>
             </div>
-            <!-- <button type="button" value="" @click="generateGroupId">Generate group Id</button> -->
             <div class="form-flx-box">
               <button type="button" class="btn" @click="generateGroupId">
                 Generate group Id
