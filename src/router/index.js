@@ -46,11 +46,17 @@ const routes = [
     props: true
   },
   {
-    path: '/Chat',
+    path: '/a',
     redirect: { 
       name: 'Home' 
     }
   },
+  // {
+  //   path: '/Chat',
+  //   redirect: { 
+  //     name: 'Home' 
+  //   }
+  // },
 ]
 
 const router = createRouter({

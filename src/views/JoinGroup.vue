@@ -60,29 +60,37 @@ export default {
       groups: [],
     };
   },
+  // destroyed() {
+  //   console.log('hmm');
+  // },
+  // unmounted() {
+  //   console.log('hmm');    
+  // },
   methods: {
     startGroup() {
       (this.groupInfo = JSON.stringify(this.state)),
-        console.log(this.state.groupName);
+        // console.log(this.state.groupName);
       this.$router.push({ name: "Chat", params: { group: this.groupInfo } });
     },
     joinGroup() {
       this.checkGroupId();
       this.startGroup();
+      console.log(this.groupInfo);
     },
     checkGroupId() {
-      console.log(this.groups);
+      // console.log(this.groups);
       this.groups.forEach((item) => {
-        console.log(item.groupId);
+        // console.log(item.groupId);
         if (item.groupId === this.inputGroupId) {
-          console.log(item);
-        this.state.hostname = item.hostname;
-        this.state.groupId = item.groupId;
-        this.state.groupName = item.groupName;
-        this.state.groupMessages = JSON.stringify(item.groupMessages);
-        this.state.username = this.inputUsername;
-          console.log(this.state);
-          console.log(this.state.groupMessages);
+          // console.log(item);
+          this.state.hostname = item.hostname;
+          this.state.groupId = item.groupId;
+          this.state.groupName = item.groupName;
+          this.state.groupMessages = item.groupMessages;
+          // this.state.groupMessages = JSON.stringify(item.groupMessages);
+          this.state.username = this.inputUsername;
+          // console.log(this.state);
+          // console.log(this.state.groupMessages);
         }
       });
     },
@@ -90,6 +98,13 @@ export default {
   mounted() {
     const messagesRef = db.database().ref("messages");
     console.log(this.groups);
+      console.log(this.groupInfo);
+
+    // console.log(performance.getEntriesByType('navigation')[0].type);
+
+    // if (performance.getEntriesByType('navigation')[0].type != 'reload') {
+    //   console.log('works');
+    // }
 
     messagesRef.on("value", (snapshot) => {
       const data = snapshot.val();
