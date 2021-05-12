@@ -2,9 +2,10 @@
   <div id="app-main">
     <div id="nav">
       <router-link :to="{name: 'Home'}"><h1 class="logo">veechat</h1></router-link> 
+      <p>{{ time }}</p>
     </div>
     <router-view />
-    <footer>
+    <footer class="footer">
       <div class="body-container">
         <p class="copyright">
           &#169; 2021 ||
@@ -16,6 +17,31 @@
     </footer>
   </div>
 </template>
+
+
+<script>
+// @ is an alias to /src
+
+export default {
+  data() {
+    return {
+      time: ''
+    };
+  },
+  methods: {
+    setTime() {
+      let today = new Date();
+      let time = today.getHours() + ":" + today.getMinutes() + ':' + today.getSeconds();
+      this.time = time;
+    },
+  },
+  mounted() {
+    setInterval(this.setTime,	1000);
+  },
+};
+</script>
+
+
 
 <style>
 /* 
@@ -37,39 +63,6 @@
   --white-color: #ffffff;
 }
 
-/* Color Theme Swatches in Hex */
-.ThePINKmic-1-hex {
-  color: #000000;
-}
-.ThePINKmic-2-hex {
-  color: #ffffff;
-}
-.ThePINKmic-3-hex {
-  color: #a8a4a8;
-}
-.ThePINKmic-4-hex {
-  color: #e800a3;
-}
-.ThePINKmic-5-hex {
-  color: #9c068f;
-}
-
-/* Color Theme Swatches in RGBA */
-.ThePINKmic-1-rgba {
-  color: rgba(0, 0, 0, 1);
-}
-.ThePINKmic-2-rgba {
-  color: rgba(255, 255, 255, 1);
-}
-.ThePINKmic-3-rgba {
-  color: rgba(168, 163, 168, 1);
-}
-.ThePINKmic-4-rgba {
-  color: rgba(232, 0, 163, 1);
-}
-.ThePINKmic-5-rgba {
-  color: rgba(155, 6, 143, 1);
-}
 
 * {
   margin: 0;
@@ -77,6 +70,12 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -86,9 +85,14 @@
   color: var(--tertiary-color);
 }
 
-/* #nav {
-  padding: 30px;
-} */
+#nav {
+  /* padding: 10px 30px; */
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 900px;
+}
 
 #nav a {
   font-weight: bold;
@@ -113,11 +117,14 @@
   margin-bottom: 20px;
   font-size: 18px;
 }
+.btn:hover {
+  cursor: pointer;
+}
 
 .view {
-  width: 100vw;
-  height: 100vh;
-  padding: 20px;
+  width: 100%;
+  min-height: 95vh;
+  padding: 40px 20px;
   background: var(--spare-color);
 }
 .auth-btn {
@@ -166,6 +173,10 @@
 
 .copyright {
   text-align: center;
+}
+
+.footer {
+  padding: 10px 20px;
 }
 
 @media only screen and (max-width: 567px) {
