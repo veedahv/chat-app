@@ -2,10 +2,10 @@
   <div class="chat-view chat">
     <div class="chat-container" v-if="groupInfo">
       <div class="chat-box">
-        <header class="header">
-          <h1 class="chat-intro">{{ groupInfo.groupName }}</h1>
+        <div class="chat-header">
+          <h2 class="chat-intro">{{ groupInfo.groupName }}</h2>
           <router-link :to="{ name: 'Home' }">Logout</router-link>
-        </header>
+        </div>
         <section class="chat-box">
           <div
             class="chat-msg"
@@ -23,21 +23,21 @@
                 <span class="arrow"></span>
               </span>
               <span class="msg-bubble">
-                <div class="username">
+                <h3 class="username">
                   {{ message.username }}
                   <span
                     class="host"
                     v-if="message.username === groupInfo.hostname"
                     >(Host)</span
                   >
-                </div>
-                <div class="content">{{ message.content }}</div>
-                <div class="date-time">{{ message.dateTime }}</div>
+                </h3>
+                <p class="content">{{ message.content }}</p>
+                <small class="date-time">{{ message.dateTime }}</small>
               </span>
             </div>
           </div>
         </section>
-        <footer class="footer">
+        <div class="chat-footer">
           <form class="chat-form" @submit.prevent="sendMessage">
             <div class="chat-input-box">
               <input
@@ -51,7 +51,7 @@
               <input type="submit" class="send btn" value="Send" />
             </div>
           </form>
-        </footer>
+        </div>
       </div>
     </div>
   </div>
@@ -140,9 +140,11 @@ export default {
 
 <style scoped>
 .chat-view {
-  width: 100%;
-  height: 95vh;
+  /* width: 100%; */
+  max-width: 900px;
+  height: 90vh;
   position: relative;
+  margin: auto;
 }
 .chat-container {
   height: 100%;
@@ -153,7 +155,6 @@ export default {
   /* display: none; */
   width: 5px;
   background: var(--sec-color);
-  /* color: var(--light-color); */
 }
 .chat-container::-webkit-scrollbar-track {
   background: var(--sec-color);
@@ -161,23 +162,17 @@ export default {
 .chat-container::-webkit-scrollbar-thumb {
   background: var(--primary-color);
 }
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.chat-containerx {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
 .chat {
   padding: 50px 20px;
 }
-.header,
-.footer {
+.chat-header,
+.chat-footer {
   position: absolute;
   width: 100%;
   left: 0;
   z-index: 5;
 }
-.header {
+.chat-header {
   top: 0;
   padding: 5px 20px;
   display: flex;
@@ -196,7 +191,7 @@ export default {
 }
 .message-inner {
   display: flex;
-  align-items: flex-start;  
+  align-items: flex-start;
   width: 100%;
 }
 .current-user .message-inner {
@@ -209,6 +204,12 @@ export default {
   padding: 25px 20px;
   border-radius: 10px;
   display: inline-block;
+}
+.username {
+  font-size: 14px;
+}
+.content {
+  font-size: 14px;
 }
 .first-letter {
   background: linear-gradient(
@@ -236,34 +237,21 @@ export default {
   height: 0;
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
-  /* border-right: 15px solid transparent;
-  border-left: 15px solid #17214f; */
   border-left: 15px solid transparent;
   border-right: 15px solid var(--sec-color);
-  
   position: absolute;
-  /* top: 60px; */
   top: 10px;
   right: 0px;
-  /* left: 240px; */
 }
 .current-user .msg-bubble {
   background: var(--primary-color);
 }
 .current-user .arrow {
-  /* width: 0;
-  height: 0;
-  border-top: 15px solid transparent;
-  border-bottom: 15px solid transparent; */
   border-right: 15px solid transparent;
   border-left: 15px solid var(--primary-color);
-  
-  /* position: absolute; */
-  /* top: 60px; */
-  /* top: 0px; */
   left: 0px;
 }
-.footer {
+.chat-footer {
   bottom: 0;
   padding: 5px 20px;
 }
@@ -271,23 +259,21 @@ export default {
   display: flex;
   align-items: center;
 }
-.chat-message {
-  width: 100%;
-  padding: 10px 15px;
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
-  font-size: 18px;
-  border: 1px solid;
-  border-color: var(--primary-color) var(--sec-color) var(--sec-color)
-    var(--primary-color);
-}
+.chat-message,
 .send {
   border: 1px solid;
   border-color: var(--primary-color) var(--sec-color) var(--sec-color)
     var(--primary-color);
   padding: 10px 15px;
-  margin-bottom: 0px;
   font-size: 18px;
+}
+.chat-message {
+  width: 100%;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+.send {
+  margin-bottom: 0px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
 }
