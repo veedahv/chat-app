@@ -272,6 +272,7 @@ export default {
   width: 100%;
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
+  outline: none;
 }
 .send {
   margin-bottom: 0px;
