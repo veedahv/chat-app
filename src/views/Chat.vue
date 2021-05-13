@@ -103,7 +103,7 @@ export default {
         dateTime: dateTime,
       };
 
-      this.groupMessages.push(message);
+      // this.groupMessages.push(message);
       messagesRefObj.push(message);
       this.inputMessage = "";
     },
@@ -111,7 +111,7 @@ export default {
   mounted() {
     if (this.group !== undefined) {
       this.groupInfo = JSON.parse(this.group);
-      this.groupMessages = Object.values(this.groupInfo.groupMessages);
+      // this.groupMessages = Object.values(this.groupInfo.groupMessages);
     }
     const messagesRef = db.database().ref("messages");
     messagesRef.on("value", (snapshot) => {
@@ -131,6 +131,7 @@ export default {
       this.groupsArray.forEach((item) => {
         if (item.groupId === this.groupInfo.groupId) {
           this.groupKey = item.id;
+          this.groupMessages = Object.values(item.groupMessages);
         }
       });
     });
@@ -209,7 +210,7 @@ export default {
   font-size: 14px;
 }
 .content {
-  font-size: 14px;
+  font-size: 18px;
 }
 .first-letter {
   background: linear-gradient(
