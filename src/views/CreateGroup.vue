@@ -34,31 +34,40 @@
                 Generate group Id
               </button>
               <div class="form-input-box">
-                <input
-                  type="text"
-                  name="username"
-                  id="username"
-                  class="username form-input"
-                  v-model="inputGroupId"
-                  disabled
-                />
+                <div class="copy-box">
+                  <input
+                    type="text"
+                    name="input-group-id"
+                    id="input-group-id"
+                    class="input-group-id form-input"
+                    v-model="inputGroupId"
+                    disabled
+                  />
+                  <button class="copy-btn" type="button" @click="copyId">
+                    <i class="fa fa-clipboard" aria-hidden="true"></i>
+                  </button>
+                </div>
               </div>
             </div>
             <input type="submit" class="btn auth-btn" value="Create Group" />
             <router-link :to="{ name: 'JoinGroup' }">Join Group</router-link>
           </div>
         </form>
+                  <input
+                    type="text"
+                    name="input-not-visible"
+                    id="input-not-visible"
+                    class="input-not-visible form-input"
+                    v-model="inputGroupId"
+                  />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /sr
-// import HelloWorl from '@/components/HelloWorld.vue'
 import db from "@/db.js";
 
-// import { reactive, onMounted, ref } from "vue";
 import { reactive, ref } from "vue";
 
 export default {
@@ -81,13 +90,11 @@ export default {
   },
   methods: {
     startGroup() {
-      (this.groupInfo = JSON.stringify(this.state)),
-        console.log(this.state.groupName);
+      (this.groupInfo = JSON.stringify(this.state));
       this.$router.push({ name: "Chat", params: { group: this.groupInfo } });
     },
     createGroup() {
       if (this.inputHostname !== "" || this.inputHostname !== null) {
-        // alert("enter your username");
         this.state.hostname = this.inputHostname;
         this.state.username = this.inputHostname;
         this.state.groupId = this.inputGroupId;
@@ -106,18 +113,17 @@ export default {
           groupId: this.state.groupId,
           groupName: this.state.groupName,
           groupMessages: this.state.groupMessages,
-          // content: inputMessage.value,
         };
-        // let dbKey = messagesRef.push().getKey();
-        // messagesRef.child(dbKey).setValue(message);
-        // messagesRef.getKey();
         messagesRef.push(message);
         this.startGroup();
-        console.log(message);
-        // console.log(dbKey);
       } else {
         alert("enter your username");
       }
+    },
+    copyId() {
+      var copyText = document.querySelector("#input-not-visible");
+      copyText.select();
+      document.execCommand("copy");
     },
     createGroupId() {
       let result = [];
@@ -142,7 +148,6 @@ export default {
           this.inputGroupId = this.createGroupId();
         }
       });
-      // this.inputGroupId.value = createGroupId();
     },
   },
   mounted() {
@@ -160,13 +165,10 @@ export default {
           hostname: data[key].hostname,
           groupName: data[key].groupName,
           groupMessages: data[key].groupMessages,
-          // username: data[key].username,
-          // content: data[key].content,
         });
       });
 
       this.groups = groupsArr;
-      // state.messages = messages;
       console.log(this.groups);
     });
   },
@@ -176,6 +178,26 @@ export default {
 <style scoped>
 input {
   display: block;
+}
+.input-not-visible {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+.copy-box {
+  position: relative;
+}
+.copy-btn {
+  position: absolute;
+  top: 50%;
+  right: 25px;
+  /* right: 30px; */
+  transform: translateY(-50%);
+  background: transparent;
+  color: var(--light-color);
+  border: none;
+  outline: none;
+  font-size: 22px;
 }
 .header,
 .footer {

@@ -4,7 +4,6 @@
       <div class="chat-box">
         <header class="header">
           <h1 class="chat-intro">{{ groupInfo.groupName }}</h1>
-          <!-- <button class="logout" @click="logout">Logout</button> -->
           <router-link :to="{ name: 'Home' }">Logout</router-link>
         </header>
         <section class="chat-box">
@@ -55,28 +54,13 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorl from '@/components/HelloWorld.vue'
 import db from "@/db.js";
-
-// console.log(performance.getEntriesByType("navigation")[0].type);
-// console.log(performance.getEntriesByType("navigation")[0]);
-// console.log(performance.getEntriesByType("navigation")[0].type);
-// console.log(performance.getEntriesByType("navigation"));
-
-if (performance.getEntriesByType("navigation")[0].type !== "reload") {
-  console.log("works");
-}
 
 export default {
   name: "Chat",
   props: ["group"],
-  // components: {
-  //   HelloWorld
-  // }
   data() {
     return {
-      // groupInfo: JSON.parse(this.group),
       groupInfo: null,
       groupMessages: [],
       inputMessage: "",
@@ -85,28 +69,12 @@ export default {
     };
   },
   created() {
-    console.log(this.group);
-    // window.addEventListener('beforeunload', () => {
-    // if (this.groupInfo === null) {
     if (this.group === undefined) {
       this.$router.push({ name: "Home" });
     }
-    // this.$router.push({name: 'Home'});
-    // this.$router.replace({name: 'Home'})
-    // this.$router.go('/');
-    // })
   },
   methods: {
     sendMessage() {
-      // window.addEventListener('unload', () => {
-      // event.returnValue
-      console.log("ayy");
-      // console.log(window.Performance);
-      //   console.log('hhayy');
-      // console.log(window.Performance);
-      // window.Location.href = './';
-      // const messagesRef = db.database().ref("messages");
-      // const messagesRefObj = db.database().ref("messages/" + this.groupKey);
       const messagesRefObj = db
         .database()
         .ref("messages/" + this.groupKey + "/groupMessages");
@@ -130,55 +98,18 @@ export default {
 
       this.groupMessages.push(message);
       messagesRefObj.push(message);
-      // console.log(messagesRefObj);
-
-      // messagesRef.on("value", (snapshot) => {
-      // const data = snapshot.val();
-      // let groupsArr = [];
-      // console.log(data[this.groupKey].groupMessages);
-
-      // data[this.groupKey].groupMessages.push(message);
-
-      // console.log(data[this.groupKey].groupMessages);
-      // messagesRef.update(data[this.groupKey].groupMessages);
-      // });
-
-      // messagesRef.push(message);
       this.inputMessage = "";
     },
   },
   mounted() {
-    // console.log(this.group);
-    // console.log(this.groupInfo);
-    // console.log(Performance.navigation.type);
-    // console.log(window.Performance);
-    // if (Performance.navigation.type == Performance.navigation.TYPE_RELOAD) {
-    //   console.log('yhupp');
-    // } else {
-    //   console.log('nuupp');
-    // }
-    // console.log(performance.getEntriesByType("navigation")[0].type);
-
-    // if (performance.getEntriesByType("navigation")[0].type != "reload") {
-    // if (performance.getEntriesByType("navigation")[0].type != "refresh") {
-    // console.log("works");
-    // console.log(performance.getEntriesByType("navigation")[0].type);
-    // this.groupInfo.groupMessages = JSON.parse(this.groupInfo.groupMessages);
-    // console.log(this.groupInfo.groupMessages);
-    // console.log(this.groupMessages);
-    console.log(this.group);
-
     if (this.group !== undefined) {
       this.groupInfo = JSON.parse(this.group);
       this.groupMessages = Object.values(this.groupInfo.groupMessages);
     }
-
     const messagesRef = db.database().ref("messages");
-
     messagesRef.on("value", (snapshot) => {
       const data = snapshot.val();
       let groupsArr = [];
-
       Object.keys(data).forEach((key) => {
         groupsArr.push({
           id: key,
@@ -190,22 +121,12 @@ export default {
       });
 
       this.groupsArray = groupsArr;
-      console.log(this.groupsArray);
-
       this.groupsArray.forEach((item) => {
         if (item.groupId === this.groupInfo.groupId) {
-          console.log(item.id);
           this.groupKey = item.id;
-          console.log(this.groupKey);
         }
       });
-      // state.messages = messages;
     });
-    // } else {
-    //   this.$router.replace({name: 'Home'});
-    //   console.log('yay! finally');
-    //   console.log(performance.getEntriesByType("navigation")[0].type);
-    // }
   },
 };
 </script>

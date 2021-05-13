@@ -1,7 +1,9 @@
 <template>
   <div id="app-main">
     <div id="nav">
-      <router-link :to="{name: 'Home'}"><h1 class="logo">veechat</h1></router-link> 
+      <router-link :to="{ name: 'Home' }">
+        <h1 class="logo">veechat</h1>
+      </router-link>
       <p>{{ time }}</p>
     </div>
     <router-view />
@@ -9,9 +11,9 @@
       <div class="body-container">
         <p class="copyright">
           &#169; 2021 ||
-          <a href="https://victoria-akpan.netlify.app/" class="portfolio"
-            >By Veedahv</a
-          >
+          <a href="https://victoria-akpan.netlify.app/" class="portfolio">
+            By Veedahv
+          </a>
         </p>
       </div>
     </footer>
@@ -20,23 +22,22 @@
 
 
 <script>
-// @ is an alias to /src
-
 export default {
   data() {
     return {
-      time: ''
+      time: "",
     };
   },
   methods: {
     setTime() {
       let today = new Date();
-      let time = today.getHours() + ":" + today.getMinutes() + ':' + today.getSeconds();
+      let time =
+        today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
       this.time = time;
     },
   },
   mounted() {
-    setInterval(this.setTime,	1000);
+    setInterval(this.setTime, 1000);
   },
 };
 </script>
@@ -44,16 +45,6 @@ export default {
 
 
 <style>
-/* 
-:root {
-  --primary-color: #F2A766;
-  --sec-color: #BF8756;
-  --tertiary-color: #404040;
-  --light-color: #F2F2F2;
-  --spare-color: #77788C;
-  --white-color: #ffffff;
-} */
-
 :root {
   --primary-color: #e800a3;
   --sec-color: #9c068f;
@@ -63,12 +54,11 @@ export default {
   --white-color: #ffffff;
 }
 
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 a {
@@ -80,8 +70,6 @@ a {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
-  /* color: #2c3e50; */
   color: var(--tertiary-color);
 }
 
@@ -92,11 +80,11 @@ a {
   align-items: center;
   justify-content: space-between;
   max-width: 900px;
+  margin: 0px auto;
 }
 
 #nav a {
   font-weight: bold;
-  /* color: #2c3e50; */
 }
 
 /* #nav a.router-link-exact-active {
@@ -117,6 +105,7 @@ a {
   margin-bottom: 20px;
   font-size: 18px;
 }
+button:hover,
 .btn:hover {
   cursor: pointer;
 }
@@ -131,7 +120,6 @@ a {
   width: 100%;
 }
 .auth-form {
-  /* background: var(--spare-color); */
   background: var(--tertiary-color);
   color: var(--light-color);
   max-width: 600px;
@@ -142,7 +130,6 @@ a {
 
 .form-flx-box {
   display: flex;
-  /* align-items: center; */
   justify-content: space-between;
 }
 .form-flx-box > * {
@@ -158,17 +145,15 @@ a {
 .form-input {
   font-size: 18px;
   margin-bottom: 20px;
-  /* background: var(--light-color); */
   background: transparent;
   color: var(--light-color);
-  /* color: var(--tertiary-color); */
   outline: none;
   width: 100%;
-  /* border: none; */
   border-radius: 10px;
   padding: 10px 30px;
   border: 1px solid;
-  border-color: var(--primary-color) var(--sec-color) var(--sec-color) var(--primary-color);
+  border-color: var(--primary-color) var(--sec-color) var(--sec-color)
+    var(--primary-color);
 }
 
 .copyright {
@@ -184,5 +169,4 @@ a {
     flex-direction: column;
   }
 }
-
 </style>
