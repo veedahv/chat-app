@@ -18,6 +18,10 @@
             "
           >
             <div class="message-inner">
+              <span class="first-letter">{{ message.firstLetter }}</span>
+              <span class="box-arrow">
+                <span class="arrow"></span>
+              </span>
               <span class="msg-bubble">
                 <div class="username">
                   {{ message.username }}
@@ -64,6 +68,7 @@ export default {
       groupInfo: null,
       groupMessages: [],
       inputMessage: "",
+      firstLetter: "",
       groupKey: "",
       groupsArray: [],
     };
@@ -81,6 +86,7 @@ export default {
       if (this.inputMessage === "" || this.inputMessage === null) {
         return;
       }
+      this.firstLetter = this.groupInfo.username.slice(0, 1).toUpperCase();
       let today = new Date();
       let date =
         today.getDate() +
@@ -92,6 +98,7 @@ export default {
       let dateTime = time + " || " + date;
       const message = {
         username: this.groupInfo.username,
+        firstLetter: this.firstLetter,
         content: this.inputMessage,
         dateTime: dateTime,
       };
@@ -131,8 +138,6 @@ export default {
 };
 </script>
 
-
-
 <style scoped>
 .chat-view {
   width: 100%;
@@ -142,6 +147,25 @@ export default {
 .chat-container {
   height: 100%;
   overflow-y: scroll;
+  overflow-x: hidden;
+}
+.chat-container::-webkit-scrollbar {
+  /* display: none; */
+  width: 5px;
+  background: var(--sec-color);
+  /* color: var(--light-color); */
+}
+.chat-container::-webkit-scrollbar-track {
+  background: var(--sec-color);
+}
+.chat-container::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.chat-containerx {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 .chat {
   padding: 50px 20px;
@@ -170,6 +194,15 @@ export default {
   margin-left: 10px;
   text-align: right;
 }
+.message-inner {
+  display: flex;
+  align-items: flex-start;  
+  width: 100%;
+}
+.current-user .message-inner {
+  align-items: flex-start;
+  flex-direction: row-reverse;
+}
 .msg-bubble {
   background: var(--sec-color);
   color: var(--light-color);
@@ -177,8 +210,58 @@ export default {
   border-radius: 10px;
   display: inline-block;
 }
+.first-letter {
+  background: linear-gradient(
+    to right,
+    var(--primary-color) 0%,
+    var(--sec-color) 100%
+  );
+  color: var(--light-color);
+  /* padding: 25px 20px; */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  /* font-weight: 700; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.box-arrow {
+  padding: 5px 8px;
+  position: relative;
+}
+.arrow {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  /* border-right: 15px solid transparent;
+  border-left: 15px solid #17214f; */
+  border-left: 15px solid transparent;
+  border-right: 15px solid var(--sec-color);
+  
+  position: absolute;
+  /* top: 60px; */
+  top: 10px;
+  right: 0px;
+  /* left: 240px; */
+}
 .current-user .msg-bubble {
   background: var(--primary-color);
+}
+.current-user .arrow {
+  /* width: 0;
+  height: 0;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent; */
+  border-right: 15px solid transparent;
+  border-left: 15px solid var(--primary-color);
+  
+  /* position: absolute; */
+  /* top: 60px; */
+  /* top: 0px; */
+  left: 0px;
 }
 .footer {
   bottom: 0;
